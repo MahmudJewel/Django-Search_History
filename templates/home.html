@@ -1,0 +1,48 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <!-- distinct keywords, users, time ==> filter  -->
+  <div class="row">
+    <h2 class="text-center text-primary m-4">Filters </h2>
+    <!-- dictinct keywords  -->
+    <div class="col-md-3 shadow">
+      <h2 class="text-center text-primary">Key-Words</h2>
+      <div class="m-3">
+        {% for h in keywords %}
+        <li>
+          <input type="checkbox" value="{{h.keyword }}" name="ckbox" />
+          {{h.keyword}} ({{ h.key_count}} times found ) 
+        </li>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- users  -->
+    <div class="col-md-3 shadow">
+      <h2 class="text-center text-primary">Users</h2>
+      <div class="m-3">
+        {% for h in users %}
+        <li>
+          <input type="checkbox" value="{{h.username }}" name="ckbox" />
+          {{h.username}}
+        </li>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- all data with describe  -->
+  <div class="row">
+    <h2 class="text-center text-primary m-4">All Data </h2>
+    {% for data in all_Data %}
+    <div class="col-md-3">
+    <div class="card shadow m-3 p-3">
+      keyword : {{data.keyword}} <br>
+      Searched by : {{data.user}} <br>
+      Searched Result : {{data.result}} <br>
+      searched Time : {{data.time}}
+    </div>
+  </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
