@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 <div class="container">
   <!-- distinct keywords, users, time ==> filter  -->
   <form action="?" method="get">
@@ -9,10 +9,8 @@
         <h2 class="text-center text-primary">Key-Words</h2>
         <div class="m-3">
           {% for h in keywords %}
-          <li>
-            <input type="checkbox" value="{{h.keyword }}" name="keyword_checkbox" />
-            {{h.keyword}} ({{ h.key_count}} times found )
-          </li>
+          <input class="form-check-input" id="{{h.keyword}}" type="checkbox" value="{{h.keyword }}" name="keyword_checkbox" {% if h.keyword in ky %} checked {% endif %}/>
+          <label class="form-check-label" for="{{h.keyword}}"> {{h.keyword}} ({{ h.key_count}} times found ) </label> <br>
           {% endfor %}
         </div>
       </div>
@@ -22,10 +20,9 @@
         <h2 class="text-center text-primary">Users</h2>
         <div class="m-3">
           {% for h in users %}
-          <li>
-            <input type="checkbox" value="{{h.username }}" name="user_checkbox" />
-            {{h.username}}
-          </li>
+            <input class="form-check-input" id="{{h.id}}" type="checkbox" value="{{h.username }}" name="user_checkbox" {% if h.username in users_ck %} checked {% endif %}/>
+            <label class="form-check-label" for="{{h.id}}"> {{h.username}} </label>
+          <br>
           {% endfor %}
         </div>
       </div>
@@ -33,28 +30,27 @@
       <div class="col-md-3 shadow">
         <h2 class="text-center text-primary">Time Range</h2>
         <div class="m-3">
-          <li>
-            <input type="checkbox" value="1" name="time_checkbox" />
-            See data from Yesterday
-          </li>
-          <li>
-            <input type="checkbox" value="7" name="time_checkbox" />
-            See data from last week
-          </li>
-          <li>
-            <input type="checkbox" value="30" name="time_checkbox" />
-            see data from last month
-          </li>
+          <input class="form-check-input" id="one" type="checkbox" value="1" name="time_checkbox" {% if time_range %} {% if '1' in time_range %} checked {% endif %}{% endif %}/>
+          <label class="form-check-label" for="one"> See data from Yesterday </label>
+          <br>
+
+          <input class="form-check-input" id="seven" type="checkbox" value="7" name="time_checkbox" {% if '7' in time_range %} checked {% endif %}/>
+          <label class="form-check-label" for="seven"> See data from last week </label>
+          <br>
+
+          <input class="form-check-input" id="month" type="checkbox" value="30" name="time_checkbox" {% if '30' in time_range %} checked {% endif %}/>
+          <label class="form-check-label" for="month"> see data from last month </label>
+          <br>
         </div>
       </div>
 
       <div class="col-md-3 shadow">
         <h2 class="text-center text-primary">Select Date</h2>
         <div class="m-1">
-          <li>Start Date:
+          <li class="list-inline-item">Start Date:
             <input type="date" name="start_date" class="m-1" />
           </li>
-          <li>End Date:
+          <li class="list-inline-item">End Date:
             <input type="date" name="end_date" class="m-1"/>
           </li>
         </div>
@@ -62,6 +58,7 @@
 
       <div class="m-4">
         <button class="btn btn-primary" type="submit" >Submit</button>
+        <a href="/" class="btn btn-secondary" >Reset</a>
       </div>
     </div>
   </form>

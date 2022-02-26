@@ -51,10 +51,21 @@ class history_view(ListView):
         return all_Data
     
     def get_context_data(self, **kwargs):
+        # for checked or unchecked 
+        ky = self.request.GET.getlist('keyword_checkbox')
+        users_ck = self.request.GET.getlist("user_checkbox")
+        time_range = self.request.GET.getlist("time_checkbox")
+        if time_range:
+            print('time : ', time_range[0])
+        
+        # print(f"keyword is : ", ky)
         context = super().get_context_data(**kwargs)
         users= User.objects.all()
         keywords = history.objects.values("keyword").distinct().annotate(key_count=Count("keyword")).order_by('-key_count')
         context['users'] = list(users)
         context['keywords'] = list(keywords)
+        context['ky']=list(ky)
+        context['users_ck']=list(users_ck)
+        context['time_range']=list(time_range)
         return context
     
