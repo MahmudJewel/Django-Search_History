@@ -1,11 +1,11 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <div class="container">
   <!-- distinct keywords, users, time ==> filter  -->
-  <form action="?" method="get">
-    <div class="row">
+  <form action="?" method="get" >
+    <div class="row" style="background: white; border-radius: 20px;">
       <h2 class="text-center text-primary m-4">Filters</h2>
       <!-- dictinct keywords  -->
-      <div class="col-md-3 shadow">
+      <div class="col-md-3 shadow" style="background: #f2f2f2;">
         <h2 class="text-center text-primary">Key-Words</h2>
         <div class="m-3">
           {% for h in keywords %}
@@ -16,9 +16,9 @@
       </div>
 
       <!-- users  -->
-      <div class="col-md-3 shadow">
+      <div class="col-md-3 shadow" style="background: #f2f2f2;">
         <h2 class="text-center text-primary">Users</h2>
-        <div class="m-3">
+        <div class="m-3" >
           {% for h in users %}
             <input class="form-check-input" id="{{h.id}}" type="checkbox" value="{{h.username }}" name="user_checkbox" {% if h.username in users_ck %} checked {% endif %}/>
             <label class="form-check-label" for="{{h.id}}"> {{h.username}} </label>
@@ -27,7 +27,7 @@
         </div>
       </div>
       <!-- fixed date  -->
-      <div class="col-md-3 shadow">
+      <div class="col-md-3 shadow" style="background: #f2f2f2;">
         <h2 class="text-center text-primary">Time Range</h2>
         <div class="m-3">
           <input class="form-check-input" id="one" type="checkbox" value="1" name="time_checkbox" {% if time_range %} {% if '1' in time_range %} checked {% endif %}{% endif %}/>
@@ -44,7 +44,7 @@
         </div>
       </div>
 
-      <div class="col-md-3 shadow">
+      <div class="col-md-3 shadow" style="background: #f2f2f2;">
         <h2 class="text-center text-primary">Select Date</h2>
         <div class="m-1">
           <li class="list-inline-item">
@@ -69,7 +69,7 @@
     <h2 class="text-center text-primary m-4">All Search History</h2>
     {% for data in all_Data %}
     <div class="col-md-3">
-      <div class="card shadow m-3 p-3">
+      <div class="card shadow m-3 p-3" style="border-radius: 15px;">
         keyword : {{data.keyword}} <br />
         Searched by : {{data.user}} <br />
         Searched Result : {{data.result}} <br />
