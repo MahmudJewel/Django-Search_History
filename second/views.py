@@ -31,6 +31,9 @@ class history_view(ListView):
         if len(user_checkbox)>0:
             all_Data = history.objects.filter(user__username__in=user_checkbox)
         
+        if len(keyword_checkbox)>0 and len(user_checkbox)>0:
+            all_Data = history.objects.filter(user__username__in=user_checkbox).filter(keyword__in=keyword_checkbox)
+        
         # fixed time filter 
         if len(time_checkbox)>0:
             now = datetime.now().date()
@@ -44,10 +47,26 @@ class history_view(ListView):
             if time_checkbox[0]=="1":
                 date = datetime.now() - timedelta(1)
                 str_date= date.date()
-            all_Data=history.objects.filter(time__range=[str_date, now])
+            
+            if len(keyword_checkbox)>0 and len(user_checkbox)>0:
+                all_Data = history.objects.filter(user__username__in=user_checkbox).filter(keyword__in=keyword_checkbox).filter(time__range=[str_date, now])
+            elif len(keyword_checkbox)>0 :
+                all_Data = history.objects.filter(keyword__in=keyword_checkbox).filter(time__range=[str_date, now])
+            elif len(user_checkbox)>0 :
+                all_Data = history.objects.filter(user__username__in=user_checkbox).filter(time__range=[str_date, now])
+            
+            else:
+                all_Data=history.objects.filter(time__range=[str_date, now])
         # date range 
         if start_date != '' and end_date != '':
-            all_Data=history.objects.filter(time__range=[start_date, end_date])
+            if len(keyword_checkbox)>0 and len(user_checkbox)>0:
+                all_Data = history.objects.filter(user__username__in=user_checkbox).filter(keyword__in=keyword_checkbox).filter(time__range=[start_date, end_date])
+            elif len(keyword_checkbox)>0 :
+                all_Data = history.objects.filter(keyword__in=keyword_checkbox).filter(time__range=[start_date, end_date])
+            elif len(user_checkbox)>0 :
+                all_Data = history.objects.filter(user__username__in=user_checkbox).filter(time__range=[start_date, end_date])
+            else:
+                all_Data=history.objects.filter(time__range=[start_date, end_date])
         return all_Data
     
     def get_context_data(self, **kwargs):
