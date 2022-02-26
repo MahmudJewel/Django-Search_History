@@ -1,0 +1,36 @@
+<div class="row mt-4">
+    <!-- paginator  -->
+    <div class="card-footer">
+      <div class="row justify-content-between">
+          <div class="col-md-6">
+              <p>Showing {{page_obj.start_index }} to {{page_obj.end_index }} out of
+                  {{ page_obj.paginator.count }}</p>
+          </div>
+          <div class="col-md-2">
+              {% if is_paginated %}
+        <div class="btn-group me-2" role="group" aria-label="First group">
+          {% if page_obj.has_previous %}
+          <button type="button" class="btn btn-outline-primary"><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></button>
+            
+          
+          {% else %}
+          <button type="button" class="btn btn-outline-primary disabled"><span>&laquo;</span></button>
+          {% endif %} 
+          {% for i in page_obj.paginator.page_range %} 
+          {% if page_obj.number == i %}
+          <button type="button" class="btn btn-outline-primary active">{{ i }}<span class="sr-only">(current)</span></button>
+          {% else %}
+          <button type="button" class="btn btn-outline-primary"><a href="?page={{ i }}" class="p-2">{{ i }}</a></button>
+          {% endif %} 
+          {% endfor %} 
+          {% if page_obj.has_next %}
+          <button type="button" class="btn btn-outline-primary"><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></button>
+          {% else %}
+          <button type="button" class="btn btn-outline-primary disabled"><span>&raquo;</span></button>
+          {% endif %}
+      </div>
+        {% endif %}
+          </div>
+      </div>
+  </div>
+  </div>

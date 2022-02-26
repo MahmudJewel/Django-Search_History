@@ -12,7 +12,7 @@ class history_view(ListView):
     template_name = "home.html"
     model=history
     context_object_name = 'all_Data'
-    paginate_by = 200
+    paginate_by = 12
     
     def get_queryset(self):
         all_Data = history.objects.all().order_by('-time')
