@@ -1,7 +1,6 @@
 def get_prefix_arr(pattern, b):
     prefix_arr = [0] * b
-    n = 0
-    m = 1
+    n, m = 0,1
     while m != b:
         if pattern[m] == pattern[n]:
             n += 1
